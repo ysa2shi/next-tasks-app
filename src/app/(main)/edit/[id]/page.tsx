@@ -17,8 +17,7 @@ const getTask = async (id: string): Promise<TaskDocument> => {
 
 const EditTaskPage = async (props: { params: Promise<{ id: string }> }) => {
   const resolvedParams = await props.params;
-  const id = resolvedParams.id;
-  const task = await getTask(id);
+  const task = await getTask(resolvedParams.id);
 
   return (
     <div className="flex flex-col justify-center py-20">

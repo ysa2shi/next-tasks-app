@@ -6,8 +6,7 @@ export const GET = async (_: NextRequest, props: { params: Promise<{ id: string 
   try {
     await connectDb();
     const resolvedParams = await props.params;
-    const id = resolvedParams.id;
-    const task = await TaskModel.findById(id);
+    const task = await TaskModel.findById(resolvedParams.id);
 
     if (!task) {
       return NextResponse.json({ message: "Task not found" }, { status: 404 });

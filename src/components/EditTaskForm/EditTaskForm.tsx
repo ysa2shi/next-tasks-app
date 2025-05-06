@@ -2,8 +2,7 @@
 
 import { FormState, updateTask } from "@/actions/task";
 import { TaskDocument } from "@/models/task";
-import { useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useState } from "react";
 
 interface EditTaskFormProps {
   task: TaskDocument;
@@ -19,22 +18,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
   const initialState: FormState = {
     error: "",
   };
-  const [state, formAction] = useFormState(updateTaskWithId, initialState);
-
-  const SubmitButton = () => {
-    const { pending } = useFormStatus();
-
-    return (
-      <button
-        type="submit"
-        disabled={pending}
-        className="mt-8 py-2 w-full rounded-md text-white bg-gray-800 hover:bg-gray-700 text-sm font-semibold shadow-sm
-        disabled:bg-gray-400"
-      >
-        Edit
-      </button>
-    );
-  };
+  const [state, formAction, isPending] = useActionState(updateTaskWithId, initialState);
 
   return (
     <div className="mt-10 mx-auto w-full max-w-sm">
@@ -96,7 +80,14 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
             タスクを完了にする
           </label>
         </div>
-        <SubmitButton />
+        <button
+          type="submit"
+          disabled={isPending}
+          className="mt-8 py-2 w-full rounded-md text-white bg-gray-800 hover:bg-gray-700 text-sm font-semibold shadow-sm
+        disabled:bg-gray-400"
+        >
+          Edit
+        </button>
         {state.error !== "" && <p className="mt-2 text-red-500 text-sm">{state.error}</p>}
       </form>
     </div>
