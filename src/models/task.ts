@@ -1,5 +1,4 @@
 import mongoose, { Document } from "mongoose";
-import { JSX } from "react";
 
 export interface Task {
   title: string;
@@ -9,7 +8,6 @@ export interface Task {
 }
 
 export interface TaskDocument extends Task, Document {
-  map(arg0: (task: any) => JSX.Element): import("react").ReactNode;
   _id: string;
   createdAt: Date;
   updatedAt: Date;

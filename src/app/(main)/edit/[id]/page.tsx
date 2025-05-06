@@ -1,10 +1,6 @@
 import EditTaskForm from "@/components/EditTaskForm/EditTaskForm";
 import { TaskDocument } from "@/models/task";
 
-interface Params {
-  params: { id: string };
-}
-
 const getTask = async (id: string): Promise<TaskDocument> => {
   const response = await fetch(`${process.env.API_URL}/tasks/${id}`, {
     method: "GET",
@@ -19,8 +15,9 @@ const getTask = async (id: string): Promise<TaskDocument> => {
   return data.task as TaskDocument;
 };
 
-const EditTaskPage = async ({ params }: Params) => {
-  const { id } = await params;
+const EditTaskPage = async (props: { params: Promise<{ id: string }> }) => {
+  const resolvedParams = await props.params;
+  const id = resolvedParams.id;
   const task = await getTask(id);
 
   return (

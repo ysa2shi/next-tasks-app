@@ -21,6 +21,7 @@ export const createTask = async (state: FormState, formData: FormData) => {
     await TaskModel.create(newTask);
   } catch (error) {
     state.error = "Failed to create task";
+    console.error(error);
     return state;
   }
 
@@ -40,6 +41,7 @@ export const updateTask = async (id: string, state: FormState, formData: FormDat
     await TaskModel.updateOne({ _id: id }, updateTask);
   } catch (error) {
     state.error = "Failed to update task";
+    console.error(error);
     return state;
   }
 
@@ -52,6 +54,7 @@ export const deleteTask = async (id: string, state: FormState) => {
     await TaskModel.deleteOne({ _id: id });
   } catch (error) {
     state.error = "Failed to delete task";
+    console.error(error);
     return state;
   }
 
